@@ -16,6 +16,7 @@ class ViewController: UIViewController {
         let imageBackground = UIImage(named: "background")
         let imageView = UIImageView(image: imageBackground)
         imageView.contentMode = .scaleAspectFill
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -27,6 +28,7 @@ class ViewController: UIViewController {
         label.textAlignment = .center
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         label.backgroundColor = .white.withAlphaComponent(0)
+
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -62,7 +64,6 @@ class ViewController: UIViewController {
 
         textField.placeholder = "Password"
         textField.isSecureTextEntry = true
-        textField.clearButtonMode = .always
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 20
 
@@ -88,6 +89,17 @@ class ViewController: UIViewController {
         return button
     }()
 
+    private lazy var forgotPasswordButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Forgot your password?", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+
+        button.addTarget(self, action: #selector(forgotPasswordButtonPressed), for: .touchUpInside)
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -96,7 +108,7 @@ class ViewController: UIViewController {
         setupLayout()
     }
 
-    // MARK: Setup
+    // MARK: - Setup
 
     private func setupHierarchy() {
         view.addSubview(backgroundImageView)
@@ -104,6 +116,7 @@ class ViewController: UIViewController {
         view.addSubview(usernameTextField)
         view.addSubview(passwordTextField)
         view.addSubview(loginButton)
+        view.addSubview(forgotPasswordButton)
     }
 
     private func setupLayout() {
@@ -112,6 +125,7 @@ class ViewController: UIViewController {
         setupUsernameTextField()
         setupPasswordTextField()
         setupLoginButton()
+        setupForgotPasswordButton()
     }
 
     private func setupBackgroundImageView() {
@@ -166,7 +180,14 @@ class ViewController: UIViewController {
         }
     }
 
-    // MARK: Actions
+    private func setupForgotPasswordButton() {
+        forgotPasswordButton.snp.makeConstraints { make in
+            make.top.equalTo(loginButton.snp.bottom).offset(15)
+            make.centerX.equalTo(view)
+        }
+    }
+
+    // MARK: - Actions
 
     @objc private func loginButtonPressed() {
         print("Login button pressed!")
@@ -182,6 +203,10 @@ class ViewController: UIViewController {
         } else {
             usernameTextField.rightView?.isHidden = true
         }
+    }
+
+    @objc private func forgotPasswordButtonPressed() {
+        print("User forgot his password!")
     }
 }
 
