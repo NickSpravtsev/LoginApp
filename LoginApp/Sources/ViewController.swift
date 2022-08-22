@@ -34,8 +34,10 @@ class ViewController: UIViewController {
     private lazy var usernameTextField: UITextField = {
         let textField = UITextField()
 
-        let icon = UIImage(systemName: "person.circle")
-        textField.setLeftIcon(icon)
+        let leftIcon = UIImage(systemName: "person.circle")
+        textField.setLeftIcon(leftIcon)
+        let rightIcon = UIImage(systemName: "checkmark.circle.fill")
+        textField.setRightIcon(rightIcon)
 
         textField.placeholder = "Username"
         textField.clearButtonMode = .always
@@ -54,8 +56,8 @@ class ViewController: UIViewController {
     private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
 
-        let icon = UIImage(systemName: "lock")
-        textField.setLeftIcon(icon)
+        let leftIcon = UIImage(systemName: "lock")
+        textField.setLeftIcon(leftIcon)
 
         textField.placeholder = "Password"
         textField.isSecureTextEntry = true
@@ -155,6 +157,18 @@ extension UITextField {
             iconContainerView.addSubview(iconView)
             leftView = iconContainerView
             leftViewMode = .always
+        }
+    }
+
+    func setRightIcon(_ image: UIImage?) {
+        if let icon = image {
+            let iconView = UIImageView(frame: CGRect(x: 10, y: 5, width: 20, height: 20))
+            iconView.tintColor = .systemGreen
+            iconView.image = icon
+            let iconContainerView: UIView = UIView(frame: CGRect(x: 20, y: 0, width: 40, height: 30))
+            iconContainerView.addSubview(iconView)
+            rightView = iconContainerView
+            rightViewMode = .always
         }
     }
 }
