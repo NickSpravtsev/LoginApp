@@ -33,16 +33,41 @@ class ViewController: UIViewController {
 
     private lazy var usernameTextField: UITextField = {
         let textField = UITextField()
+
         let icon = UIImage(systemName: "person.circle")
         textField.setLeftIcon(icon)
+
         textField.placeholder = "Username"
         textField.clearButtonMode = .always
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 20
+
+        // Setup keyboard
         textField.keyboardType = .emailAddress
-        textField.returnKeyType = .next
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
+
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+
+    private lazy var passwordTextField: UITextField = {
+        let textField = UITextField()
+
+        let icon = UIImage(systemName: "lock")
+        textField.setLeftIcon(icon)
+
+        textField.placeholder = "Password"
+        textField.isSecureTextEntry = true
+        textField.clearButtonMode = .always
+        textField.backgroundColor = .white
+        textField.layer.cornerRadius = 20
+
+        // Setup keyboard
+        textField.keyboardType = .asciiCapable
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -61,12 +86,14 @@ class ViewController: UIViewController {
         view.addSubview(backgroundImageView)
         view.addSubview(loginLabel)
         view.addSubview(usernameTextField)
+        view.addSubview(passwordTextField)
     }
 
     private func setupLayout() {
         setupBackgroundImageView()
         setupLoginLabel()
         setupUsernameTextField()
+        setupPasswordTextField()
     }
 
     private func setupBackgroundImageView() {
@@ -89,6 +116,15 @@ class ViewController: UIViewController {
     private func setupUsernameTextField() {
         usernameTextField.snp.makeConstraints { make in
             make.top.equalTo(loginLabel.snp.bottom).offset(50)
+            make.left.equalTo(view).offset(40)
+            make.right.equalTo(view).offset(-40)
+            make.height.equalTo(40)
+        }
+    }
+
+    private func setupPasswordTextField() {
+        passwordTextField.snp.makeConstraints { make in
+            make.top.equalTo(usernameTextField.snp.bottom).offset(15)
             make.left.equalTo(view).offset(40)
             make.right.equalTo(view).offset(-40)
             make.height.equalTo(40)
