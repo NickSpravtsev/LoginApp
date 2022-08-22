@@ -40,7 +40,6 @@ class ViewController: UIViewController {
         textField.setRightIcon(rightIcon)
 
         textField.placeholder = "Username"
-        textField.clearButtonMode = .always
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 20
 
@@ -48,6 +47,8 @@ class ViewController: UIViewController {
         textField.keyboardType = .emailAddress
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
+
+        textField.addTarget(self, action: #selector(usernameChanged), for: .editingChanged)
 
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -174,6 +175,14 @@ class ViewController: UIViewController {
         print("Username is \(textFromUsernameTextField)")
         print("Password is \(textFromPasswordTextField) \n")
     }
+
+    @objc private func usernameChanged() {
+        if usernameTextField.hasText {
+            usernameTextField.rightView?.isHidden = false
+        } else {
+            usernameTextField.rightView?.isHidden = true
+        }
+    }
 }
 
 extension UITextField {
@@ -197,6 +206,7 @@ extension UITextField {
             let iconContainerView: UIView = UIView(frame: CGRect(x: 20, y: 0, width: 40, height: 30))
             iconContainerView.addSubview(iconView)
             rightView = iconContainerView
+            rightView?.isHidden = true
             rightViewMode = .always
         }
     }
