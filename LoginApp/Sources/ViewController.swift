@@ -74,6 +74,16 @@ class ViewController: UIViewController {
         return textField
     }()
 
+    private lazy var loginButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .systemIndigo
+        button.setTitle("Login", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 20
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -89,6 +99,7 @@ class ViewController: UIViewController {
         view.addSubview(loginLabel)
         view.addSubview(usernameTextField)
         view.addSubview(passwordTextField)
+        view.addSubview(loginButton)
     }
 
     private func setupLayout() {
@@ -96,6 +107,7 @@ class ViewController: UIViewController {
         setupLoginLabel()
         setupUsernameTextField()
         setupPasswordTextField()
+        setupLoginButton()
     }
 
     private func setupBackgroundImageView() {
@@ -135,6 +147,15 @@ class ViewController: UIViewController {
     private func setupPasswordTextField() {
         passwordTextField.snp.makeConstraints { make in
             make.top.equalTo(usernameTextField.snp.bottom).offset(15)
+            make.left.equalTo(view).offset(40)
+            make.right.equalTo(view).offset(-40)
+            make.height.equalTo(40)
+        }
+    }
+
+    private func setupLoginButton() {
+        loginButton.snp.makeConstraints { make in
+            make.top.equalTo(passwordTextField.snp.bottom).offset(45)
             make.left.equalTo(view).offset(40)
             make.right.equalTo(view).offset(-40)
             make.height.equalTo(40)
