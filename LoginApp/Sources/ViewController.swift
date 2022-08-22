@@ -10,6 +10,13 @@ import SnapKit
 
 class ViewController: UIViewController {
 
+    // MARK: - View setup
+
+    // To lock portrait screen orientation
+    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+
     // MARK: - Outlets
 
     private lazy var backgroundImageView: UIImageView = {
