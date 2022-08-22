@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         let imageBackground = UIImage(named: "background")
         let imageView = UIImageView(image: imageBackground)
         imageView.contentMode = .scaleAspectFill
-        
+
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -82,6 +82,14 @@ class ViewController: UIViewController {
         button.setTitle("Login", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 20
+
+        // Making shadow for button
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.7
+        button.layer.shadowOffset = .zero
+        button.layer.shadowRadius = 10
+        button.layer.shouldRasterize = true
+        button.layer.rasterizationScale = UIScreen.main.scale
 
         button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
 
