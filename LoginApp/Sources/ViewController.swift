@@ -75,11 +75,14 @@ class ViewController: UIViewController {
     }()
 
     private lazy var loginButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.backgroundColor = .systemIndigo
         button.setTitle("Login", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 20
+
+        button.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
+
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -164,8 +167,13 @@ class ViewController: UIViewController {
 
     // MARK: Actions
 
-
-
+    @objc private func loginButtonPressed() {
+        print("Login button pressed!")
+        let textFromUsernameTextField = usernameTextField.text ?? ""
+        let textFromPasswordTextField = passwordTextField.text ?? ""
+        print("Username is \(textFromUsernameTextField)")
+        print("Password is \(textFromPasswordTextField) \n")
+    }
 }
 
 extension UITextField {
