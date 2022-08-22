@@ -108,6 +108,42 @@ class ViewController: UIViewController {
         return button
     }()
 
+    private lazy var leftSeparator: UIView = {
+        let separator = UIView()
+        separator.backgroundColor = .systemGray4
+
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        return separator
+    }()
+
+    private lazy var rightSeparator: UIView = {
+        let separator = UIView()
+        separator.backgroundColor = .systemGray4
+
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        return separator
+    }()
+
+    private lazy var connectWithLabel: UILabel = {
+        let label = UILabel()
+        label.text = "or connect with"
+        label.textColor = .systemGray4
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private lazy var connectWithStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fill
+        stack.alignment = .center
+        stack.spacing = 5
+
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -125,6 +161,10 @@ class ViewController: UIViewController {
         view.addSubview(passwordTextField)
         view.addSubview(loginButton)
         view.addSubview(forgotPasswordButton)
+        view.addSubview(connectWithStack)
+        connectWithStack.addArrangedSubview(leftSeparator)
+        connectWithStack.addArrangedSubview(connectWithLabel)
+        connectWithStack.addArrangedSubview(rightSeparator)
     }
 
     private func setupLayout() {
@@ -134,6 +174,7 @@ class ViewController: UIViewController {
         setupPasswordTextField()
         setupLoginButton()
         setupForgotPasswordButton()
+        setupConnectWithStack()
     }
 
     private func setupBackgroundImageView() {
@@ -191,6 +232,29 @@ class ViewController: UIViewController {
     private func setupForgotPasswordButton() {
         forgotPasswordButton.snp.makeConstraints { make in
             make.top.equalTo(loginButton.snp.bottom).offset(15)
+            make.centerX.equalTo(view)
+        }
+    }
+
+    private func setupLeftSeparator() {
+        leftSeparator.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.width.equalTo(90)
+        }
+    }
+
+    private func setupRightSeparator() {
+        rightSeparator.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.width.equalTo(90)
+        }
+    }
+
+    private func setupConnectWithStack() {
+        setupLeftSeparator()
+        setupRightSeparator()
+        connectWithStack.snp.makeConstraints { make in
+            make.top.equalTo(forgotPasswordButton.snp.bottom).offset(200)
             make.centerX.equalTo(view)
         }
     }
