@@ -168,6 +168,7 @@ class ViewController: UIViewController {
     }
 
     private func setupLayout() {
+        setupView()
         setupBackgroundImageView()
         setupLoginLabel()
         setupUsernameTextField()
@@ -175,6 +176,13 @@ class ViewController: UIViewController {
         setupLoginButton()
         setupForgotPasswordButton()
         setupConnectWithStack()
+    }
+
+    private func setupView() {
+        // Code to dismiss a keyboard with tap on view
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tapGesture)
     }
 
     private func setupBackgroundImageView() {
@@ -279,6 +287,11 @@ class ViewController: UIViewController {
 
     @objc private func forgotPasswordButtonPressed() {
         print("User forgot his password!")
+    }
+
+    // Func to hide keyboard
+    @objc private func hideKeyboard() {
+        self.view.endEditing(true)
     }
 }
 
