@@ -106,10 +106,18 @@ class ViewController: UIViewController {
     }
 
     private func setupLoginLabel() {
-        loginLabel.snp.makeConstraints { make in
-            make.top.equalTo(view).offset(120)
-            make.left.equalTo(view).offset(10)
-            make.right.equalTo(view).offset(-10)
+        if UIDevice().name == "iPhone 8" {
+            loginLabel.snp.makeConstraints { make in
+                make.top.equalTo(view).offset(80)
+                make.left.equalTo(view).offset(10)
+                make.right.equalTo(view).offset(-10)
+            }
+        } else {
+            loginLabel.snp.makeConstraints { make in
+                make.top.equalTo(view).offset(120)
+                make.left.equalTo(view).offset(10)
+                make.right.equalTo(view).offset(-10)
+            }
         }
     }
 
