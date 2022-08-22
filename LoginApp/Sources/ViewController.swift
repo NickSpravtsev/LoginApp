@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     // MARK: - Outlets
 
-    private lazy var imageViewBackground: UIImageView = {
+    private lazy var backgroundImageView: UIImageView = {
         let imageBackground = UIImage(named: "background")
         let imageView = UIImageView(image: imageBackground)
         imageView.contentMode = .scaleAspectFill
@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         return imageView
     }()
 
-    private lazy var labelLogin: UILabel = {
+    private lazy var loginLabel: UILabel = {
         let label = UILabel()
         label.text = "Login"
         label.textColor = .white
@@ -42,17 +42,17 @@ class ViewController: UIViewController {
     // MARK: Setup
 
     private func setupHierarchy() {
-        view.addSubview(imageViewBackground)
-        view.addSubview(labelLogin)
+        view.addSubview(backgroundImageView)
+        view.addSubview(loginLabel)
     }
 
     private func setupLayout() {
-        setupImageViewBackground()
-        setupLabelLogin()
+        setupBackgroundImageView()
+        setupLoginLabel()
     }
 
-    private func setupImageViewBackground() {
-        imageViewBackground.snp.makeConstraints { make in
+    private func setupBackgroundImageView() {
+        backgroundImageView.snp.makeConstraints { make in
             make.right.equalTo(view)
             make.left.equalTo(view)
             make.top.equalTo(view)
@@ -60,8 +60,8 @@ class ViewController: UIViewController {
         }
     }
 
-    private func setupLabelLogin() {
-        labelLogin.snp.makeConstraints { make in
+    private func setupLoginLabel() {
+        loginLabel.snp.makeConstraints { make in
             make.top.equalTo(view).offset(120)
             make.left.equalTo(view).offset(10)
             make.right.equalTo(view).offset(-10)
