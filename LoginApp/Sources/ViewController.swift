@@ -10,9 +10,7 @@ import SnapKit
 
 class ViewController: UIViewController {
 
-    // MARK: - View setup
-
-    // To lock portrait screen orientation
+    // Lock portrait screen orientation
     override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
@@ -33,7 +31,7 @@ class ViewController: UIViewController {
         label.text = "Login"
         label.textColor = .white
         label.textAlignment = .center
-        label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+        label.font = UIFont.boldSystemFont(ofSize: 40)
         label.backgroundColor = .white.withAlphaComponent(0)
 
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -88,6 +86,7 @@ class ViewController: UIViewController {
         button.backgroundColor = .systemIndigo
         button.setTitle("Login", for: .normal)
         button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         button.layer.cornerRadius = 20
 
         // Making shadow for button
@@ -151,6 +150,47 @@ class ViewController: UIViewController {
         return stack
     }()
 
+    private lazy var facebookButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("   Facebook", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        button.backgroundColor = .systemCyan
+        button.layer.cornerRadius = 15
+        button.setImage(UIImage(named: "facebook"), for: .normal)
+
+        button.addTarget(self, action: #selector(facebookButtonPressed), for: .touchUpInside)
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var twitterButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("   Twitter", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        button.backgroundColor = .systemTeal
+        button.layer.cornerRadius = 15
+        button.setImage(UIImage(named: "twitter"), for: .normal)
+
+        button.addTarget(self, action: #selector(twitterButtonPressed), for: .touchUpInside)
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var socialButtonsStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fill
+        stack.alignment = .center
+        stack.spacing = 15
+
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -172,6 +212,9 @@ class ViewController: UIViewController {
         connectWithStack.addArrangedSubview(leftSeparator)
         connectWithStack.addArrangedSubview(connectWithLabel)
         connectWithStack.addArrangedSubview(rightSeparator)
+        view.addSubview(socialButtonsStack)
+        socialButtonsStack.addArrangedSubview(facebookButton)
+        socialButtonsStack.addArrangedSubview(twitterButton)
     }
 
     private func setupLayout() {
@@ -183,6 +226,7 @@ class ViewController: UIViewController {
         setupLoginButton()
         setupForgotPasswordButton()
         setupConnectWithStack()
+        setupSocialButtonsStack()
     }
 
     private func setupView() {
@@ -269,7 +313,30 @@ class ViewController: UIViewController {
         setupLeftSeparator()
         setupRightSeparator()
         connectWithStack.snp.makeConstraints { make in
-            make.top.equalTo(forgotPasswordButton.snp.bottom).offset(200)
+            make.bottom.equalTo(view).offset(-220)
+            make.centerX.equalTo(view)
+        }
+    }
+
+    private func setupFacebookButton() {
+        facebookButton.snp.makeConstraints { make in
+            make.width.equalTo(150)
+            make.height.equalTo(35)
+        }
+    }
+
+    private func setupTwitterButton() {
+        twitterButton.snp.makeConstraints { make in
+            make.width.equalTo(150)
+            make.height.equalTo(35)
+        }
+    }
+
+    private func setupSocialButtonsStack() {
+        setupFacebookButton()
+        setupTwitterButton()
+        socialButtonsStack.snp.makeConstraints { make in
+            make.top.equalTo(connectWithStack.snp.bottom).offset(20)
             make.centerX.equalTo(view)
         }
     }
@@ -290,6 +357,14 @@ class ViewController: UIViewController {
         } else {
             usernameTextField.rightView?.isHidden = true
         }
+    }
+
+    @objc private func facebookButtonPressed() {
+        print("Facebook button pressed!")
+    }
+
+    @objc private func twitterButtonPressed() {
+        print("Twitter button pressed!")
     }
 
     @objc private func forgotPasswordButtonPressed() {
