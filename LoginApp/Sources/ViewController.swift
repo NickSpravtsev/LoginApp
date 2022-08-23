@@ -191,6 +191,37 @@ class ViewController: UIViewController {
         return stack
     }()
 
+    private lazy var noAccountLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Dont have account?"
+        label.textColor = .systemGray4
+
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private lazy var signUpButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Sign up", for: .normal)
+        button.setTitleColor(.systemIndigo, for: .normal)
+
+        button.addTarget(self, action: #selector(signUpButtonPressed), for: .touchUpInside)
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var signUpStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fill
+        stack.alignment = .center
+        stack.spacing = 20
+
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -215,6 +246,9 @@ class ViewController: UIViewController {
         view.addSubview(socialButtonsStack)
         socialButtonsStack.addArrangedSubview(facebookButton)
         socialButtonsStack.addArrangedSubview(twitterButton)
+        view.addSubview(signUpStack)
+        signUpStack.addArrangedSubview(noAccountLabel)
+        signUpStack.addArrangedSubview(signUpButton)
     }
 
     private func setupLayout() {
@@ -227,6 +261,7 @@ class ViewController: UIViewController {
         setupForgotPasswordButton()
         setupConnectWithStack()
         setupSocialButtonsStack()
+        setupSignUpStack()
     }
 
     private func setupView() {
@@ -341,6 +376,13 @@ class ViewController: UIViewController {
         }
     }
 
+    private func setupSignUpStack() {
+        signUpStack.snp.makeConstraints { make in
+            make.top.equalTo(socialButtonsStack.snp.bottom).offset(40)
+            make.centerX.equalTo(view)
+        }
+    }
+
     // MARK: - Actions
 
     @objc private func loginButtonPressed() {
@@ -348,7 +390,7 @@ class ViewController: UIViewController {
         let textFromUsernameTextField = usernameTextField.text ?? ""
         let textFromPasswordTextField = passwordTextField.text ?? ""
         print("Username is \(textFromUsernameTextField)")
-        print("Password is \(textFromPasswordTextField) \n")
+        print("Password is \(textFromPasswordTextField)")
     }
 
     @objc private func usernameChanged() {
@@ -359,6 +401,10 @@ class ViewController: UIViewController {
         }
     }
 
+    @objc private func forgotPasswordButtonPressed() {
+        print("User forgot his password!")
+    }
+
     @objc private func facebookButtonPressed() {
         print("Facebook button pressed!")
     }
@@ -367,8 +413,8 @@ class ViewController: UIViewController {
         print("Twitter button pressed!")
     }
 
-    @objc private func forgotPasswordButtonPressed() {
-        print("User forgot his password!")
+    @objc private func signUpButtonPressed() {
+        print("Sign up button pressed!")
     }
 
     // Func to hide keyboard
