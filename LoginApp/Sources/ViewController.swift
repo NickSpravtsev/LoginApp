@@ -15,6 +15,9 @@ class ViewController: UIViewController {
         return .portrait
     }
 
+    // List of devices without FaceID
+    let devicesWithoutFaceID = ["iPhone 8","iPhone 8 Plus", "iPhone SE (3rd generation)"]
+
     // MARK: - Outlets
 
     private lazy var backgroundImageView: UIImageView = {
@@ -281,7 +284,7 @@ class ViewController: UIViewController {
     }
 
     private func setupLoginLabel() {
-        if UIDevice().name == "iPhone 8" {
+        if devicesWithoutFaceID.contains(UIDevice().name) {
             loginLabel.snp.makeConstraints { make in
                 make.top.equalTo(view).offset(80)
                 make.left.equalTo(view).offset(10)
@@ -347,9 +350,16 @@ class ViewController: UIViewController {
     private func setupConnectWithStack() {
         setupLeftSeparator()
         setupRightSeparator()
-        connectWithStack.snp.makeConstraints { make in
-            make.bottom.equalTo(view).offset(-220)
-            make.centerX.equalTo(view)
+        if devicesWithoutFaceID.contains(UIDevice().name) {
+            connectWithStack.snp.makeConstraints { make in
+                make.bottom.equalTo(view).offset(-130)
+                make.centerX.equalTo(view)
+            }
+        } else {
+            connectWithStack.snp.makeConstraints { make in
+                make.bottom.equalTo(view).offset(-220)
+                make.centerX.equalTo(view)
+            }
         }
     }
 
@@ -378,7 +388,7 @@ class ViewController: UIViewController {
 
     private func setupSignUpStack() {
         signUpStack.snp.makeConstraints { make in
-            make.top.equalTo(socialButtonsStack.snp.bottom).offset(40)
+            make.top.equalTo(socialButtonsStack.snp.bottom).offset(30)
             make.centerX.equalTo(view)
         }
     }
